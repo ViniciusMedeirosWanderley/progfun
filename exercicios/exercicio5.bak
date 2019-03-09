@@ -15,12 +15,7 @@
 ;; de acordo com f. Bônus: escreva a função map com recursividade de cauda
 ;; (tail recursion).
 ;;
- (define (map f lst)
-  (define (loop lst acc)
-   (if (empty? lst)
-        (reverse acc)
-        (loop (rest lst) (cons (f (first lst)) acc))))
-   (loop lst '()))
+(define (map f lst) '())
 
 (define-test-suite test-map
   (test-equal? "mapa sobre a lista vazia"
@@ -39,8 +34,7 @@
 ;; da lista original, na mesma ordem. Em Racket já existe a função string-length
 ;; que calcula o tamanho de uma string.
 ;;
-(define (tamanho-str-lista lista-strings)
-  (map string-length lista-strings))
+(define (tamanho-str-lista lista-strings) '())
 
 (define-test-suite test-tamanho-lista
   (test-equal? "Lista vazia"
@@ -59,8 +53,7 @@
 ;; Crie uma função soma-5-lista que, dada uma lista de números, retorna uma
 ;; lista com os números da lista original somados a 5.
 ;;
-(define (soma-5-lista lst)
-  (map (lambda (x) (+ x 5)) lst))
+(define (soma-5-lista lst) '())
 
 (define-test-suite test-soma-5-lista
   (test-equal? "lista vazia" (soma-5-lista '()) '())
@@ -75,8 +68,7 @@
 ;; análise de dados e machine learning. Crie uma função soma-n-lista que generaliza
 ;; a função da questão anterior: (soma-n-lista n lst) retorna uma lista de mesmo
 ;; tamanho que lst mas com n somado a cada número de lst.
-(define (soma-n-lista n lst)
-  (map (lambda (x) (+ n x)) lst))
+(define (soma-n-lista n lst) '())
 
 (define-test-suite test-soma-n-lista
   (test-equal? "lista vazia"   (soma-n-lista 11 '()) '())
@@ -99,11 +91,7 @@
 ;; exercício, as funções format e ~a também podem ser úteis e até mais fáceis
 ;; de usar que string-append (procure na documentação). 
 ;;
-(define (adiciona-prefixo pre lista-assuntos)
-  (map (lambda (s) (if (string=? "" s)
-                       (format "[~a]" pre)
-                       (format "[~a] ~a" pre s)))
-         lista-assuntos))
+(define (adiciona-prefixo pre lista-assuntos) '())
 
 (define-test-suite test-adiciona-prefixo
   (test-equal? "Lista vazia" (adiciona-prefixo "teste" '()) '())
@@ -127,11 +115,7 @@
 ;; fold_right tal que (fold_right f val lst) aplica a função f aos elementos da
 ;; lista lst, um de cada vez, começando por val. Escreva a função fold_right.
 ;;
-(define (fold-right f val lst)
-  (if (empty? lst)
-      val
-      (f (first lst)
-         (fold-right f val (rest lst)))))
+(define (fold-right f val lst) '())
 
 (define-test-suite test-fold-right
   (test-equal? "fold sobre a lista vazia retorna o valor inicial"
@@ -151,11 +135,9 @@
 ;; mult-lista, que somam e multiplicam, respectivamente, todos
 ;; os números em uma lista.
 ;;
-(define (soma-lista lst)
- (fold-right + 0 lst))
+(define (soma-lista lst) 0)
 
-(define (mult-lista lst)
-  (fold-right * 1 lst))
+(define (mult-lista lst) 0)
 
 ;;
 ;; Note que essas funções são completamente desnecessárias em Racket, pois os
@@ -181,11 +163,9 @@
 ;; Usando fold-right, escreva funções and-lista e or-lista que realizam as operações
 ;; booleanas AND e OR em uma lista de valores booleanos. Essas funções não precisam
 ;; implementar comportamento de curto-circuito.
-(define (and-lista lst)
-  (fold-right (lambda (a b)  (and a b)) #t lst))
+(define (and-lista lst) #f)
 
-(define (or-lista lst)
-  (fold-right (lambda (a b) (or a b)) #f lst))
+(define (or-lista lst) #f)
 
 ;;
 ;; As funções and e or da biblioteca padrão Racket podem ser usadas no lugar de
@@ -194,12 +174,12 @@
 ;;
 
 (define-test-suite test-and-or-lista
-  (test-equal? "and com lista vazia" (and-lista '()) #t)
+  (test-equal? "and com lista vazia" (and-lista '()) #f)
   (test-equal? "and: apenas #t" (and-lista (list #t #t #t))    #t)
   (test-equal? "and: apenas #f" (and-lista (list #f #f #f #f)) #f)
   (test-equal? "and: algum #f"  (and-lista (list #t #t #f))    #f)
   
-  (test-equal? "or com lista vazia" (or-lista '()) #f)
+  (test-equal? "or com lista vazia" (or-lista '()) #t)
   (test-equal? "or: apenas #f" (or-lista (list #f #f #f #f)) #f)
   (test-equal? "or: apenas #t" (or-lista (list #t #t #t))    #t)
   (test-equal? "or: algum #t"  (or-lista (list #f #t #f #f)) #t))
@@ -237,11 +217,7 @@
 ;;
 ;; Escreva a função fold-left que faz exatamente isso.
 ;;
-(define (fold-left f val lst)
-  (if (empty? lst)
-      val
-      (fold-left f (f val (first lst)) (rest lst))))
-                 
+(define (fold-left f val lst) '())
 
 (define-test-suite test-fold-left
   (test-equal? "lista vazia" (fold-left + 0 '()) 0)
@@ -258,8 +234,7 @@
 ;; Agora escreva a função pontuacao-final que, dada a pontuação inicial ini e uma
 ;; lista de deduções lstded, retorna a pontuação final da prova.
 ;;
-(define (pontuacao-final ini lstded)
-  (fold-left - ini lstded))
+(define (pontuacao-final ini lstded) 0)
 
 (define-test-suite test-pontuacao-final
   (test-equal? "lista vazia"    (pontuacao-final 1000 '())              1000)
@@ -272,8 +247,7 @@
 ;; Suponha agora que só existe fold-right e, por algum motivo, não é possível
 ;; escrever fold-left. Defina pontuacao-final-fr, com mesma funcionalidade da
 ;; funcao pontuacao-final da questão passada, usando apenas fold-right.
-(define (pontuacao-final-fr ini lstded)
-  (fold-right (lambda (a b) (- b a)) ini (reverse lstded)))
+(define (pontuacao-final-fr ini lstded) 0)
 
 (define-test-suite test-pontuacao-final-fr
   (test-equal? "lista vazia"    (pontuacao-final-fr 1000 '())              1000)
@@ -287,8 +261,7 @@
 ;; dada uma lista de strings, retorna a concatenação de todas. Faz
 ;; diferença usar fold-left ou fold-right?
 ;;
-(define (concat-lista lista-str)
-  (fold-left string-append "" lista-str))
+(define (concat-lista lista-str) "")
 
 (define-test-suite test-concat-lista
   (test-equal? "lista vazia" (concat-lista '()) "")
@@ -306,13 +279,7 @@
 ;; (concat-lista-sep lista-str sep) é uma string com todas as strings
 ;; da lista concatenadas e separadas por sep. Ver testes para exemplos.
 ;;
-(define (concat-lista-sep lista-str sep)
-  (if (empty? lista-str)
-      ""
-      (string-append (first lista-str)
-                     (fold-left (lambda (a b) (string-append a sep b))
-                                ""
-                                (rest lista-str)))))
+(define (concat-lista-sep lista-str sep) "")
 
 (define-test-suite test-concat-lista-sep
   (test-equal? "lista vazia" (concat-lista-sep '() ", ") "")
